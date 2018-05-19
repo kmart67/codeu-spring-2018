@@ -31,6 +31,20 @@ public class AdminServlet extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response)
       throws IOException, ServletException {
     request.getRequestDispatcher("/WEB-INF/view/admin.jsp").forward(request, response);
+    String username = (String) request.getSession().getAttribute("user");
+    if (username == null) {
+      // user is not logged in, don't let them create a conversation
+      response.sendRedirect("/login");
+      return;
+    }
+
+    User user = userStore.getUser(username);
+    if (user == null) {
+      // user was not found, don't let them create a conversation
+      System.out.println("Access Denied: " + username);
+      response.sendRedirect("/login");
+      return;
+    }
   }
 
 
@@ -38,20 +52,7 @@ public class AdminServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response)
       throws IOException, ServletException {
 
-      String username = (String) request.getSession().getAttribute("user");
-      if (username == null) {
-        // user is not logged in, don't let them create a conversation
-        response.sendRedirect("/login");
-        return;
-      }
 
-      User user = userStore.getUser(username);
-      if (user == null) {
-        // user was not found, don't let them create a conversation
-        System.out.println("Access Denied: " + username);
-        response.sendRedirect("/login");
-        return;
-      }
   }
 
 
