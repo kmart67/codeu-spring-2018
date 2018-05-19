@@ -33,14 +33,17 @@ public class AdminServlet extends HttpServlet {
     request.getRequestDispatcher("/WEB-INF/view/admin.jsp").forward(request, response);
   }
 
-  @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response)
-      throws IOException, ServletException {
-  }
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response)
       throws IOException, ServletException {
+
+      String username = (String) request.getSession().getAttribute("user");
+      if (username != "chloe") {
+        // user is not logged in, redirect to main page
+        response.sendRedirect("/");
+        return;
+      }
   }
 
 
