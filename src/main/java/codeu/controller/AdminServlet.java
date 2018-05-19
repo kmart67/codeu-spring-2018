@@ -44,6 +44,21 @@ public class AdminServlet extends HttpServlet {
         response.sendRedirect("/login");
         return;
       }
+
+      String username = (String) request.getSession().getAttribute("user");
+      if (username == null) {
+        // user is not logged in, don't let them create a conversation
+        response.sendRedirect("/login");
+        return;
+      }
+
+      User user = userStore.getUser(username);
+      if (user == null) {
+        // user was not found, don't let them create a conversation
+        System.out.println("Access Denied: " + username);
+        response.sendRedirect("/login");
+        return;
+      }
   }
 
 
