@@ -32,18 +32,18 @@ public class AdminServlet extends HttpServlet {
       throws IOException, ServletException {
 
       String username = (String) request.getSession().getAttribute("user");
-      if (username == null || username != "chloe") {
+      if (username == null) {
         // user is not logged in, redirects to the login page
         response.sendRedirect("/login");
         return;
       }
 
-      // User user = userStore.getUser(username);
-      // if (user == null) {
-      //   // user was not found, redirects to the login page
-      //   response.sendRedirect("/login");
-      //   return;
-      // }
+      User user = userStore.getUser(username);
+      if (user == null) {
+        // user was not found, redirects to the login page
+        response.sendRedirect("/login");
+        return;
+      }
 
       request.getRequestDispatcher("/WEB-INF/view/admin.jsp").forward(request, response);
 
