@@ -45,8 +45,10 @@ public class AdminServlet extends HttpServlet {
         return;
       }
 
-      if(user.getName() == "chloe" || username == "chloe") {
+      if(user.getName() == "chloe") {
         request.getRequestDispatcher("/WEB-INF/view/admin.jsp").forward(request, response);
+      } else {
+        request.getRequestDispatcher("/WEB-INF/view/register.jsp").forward(request, response);
       }
 
   }
