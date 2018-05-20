@@ -31,21 +31,23 @@ public class AdminServlet extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response)
       throws IOException, ServletException {
 
-        String username = (String) request.getSession().getAttribute("user");
-        if (username == null) {
-          // user is not logged in, redirects to the login page
-          response.sendRedirect("/conversation");
-          return;
-        }
+      String username = (String) request.getSession().getAttribute("user");
+      if (username == null) {
+        // user is not logged in, redirects to the login page
+        response.sendRedirect("/conversation");
+        return;
+      }
 
-        User user = userStore.getUser(username);
-        if (user == null || user.getName() != "chloe") {
-          // user was not found, redirects to the login page
-          System.out.println("Access Denied: " + username);
-          response.sendRedirect("/login");
-          return;
-        }
-    request.getRequestDispatcher("/WEB-INF/view/admin.jsp").forward(request, response);
+      User user = userStore.getUser(username);
+      if (user == null) {
+        // user was not found, redirects to the login page
+        response.sendRedirect("/login");
+        return;
+      }
+
+      if(user.getName() == "chloe" || username == "chloe") {
+        request.getRequestDispatcher("/WEB-INF/view/admin.jsp").forward(request, response);
+      }
 
   }
 
