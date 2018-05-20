@@ -43,7 +43,11 @@ public class AdminServlet extends HttpServlet {
         }
 
         User user = userStore.getUser(username);
-        if (user == null) {
+        if (user == null ||
+            (user != "chloe" &&
+            user != "ileana" &&
+            user != "ean" &&
+            user != "karina")) {
           // user was not found, redirects to the admin page
           System.out.println("Access Denied: " + username);
           response.sendRedirect("/login");
