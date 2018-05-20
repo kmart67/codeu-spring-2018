@@ -42,12 +42,16 @@ public class AdminServlet extends HttpServlet {
         return;
       }
 
-      User user = userStore.getUser(username);
-      if (user == null) {
-        // user was not found, redirects to the login page
-        response.sendRedirect("/login");
-        return;
-      }
+      // User user = userStore.getUser(username);
+      // if (user == null ||
+      //     !user.getName().equals("chloe") ||
+      //     !user.getName().equals("ileana") ||
+      //     !user.getName().equals("ean") ||
+      //     !user.getName().equals("karina")) {
+      //   // user was not found, redirects to the login page
+      //   response.sendRedirect("/login");
+      //   return;
+      // }
 
       request.getRequestDispatcher("/WEB-INF/view/admin.jsp").forward(request, response);
 
