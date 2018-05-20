@@ -32,7 +32,7 @@ public class AdminServlet extends HttpServlet {
       throws IOException, ServletException {
 
         String username = (String) request.getSession().getAttribute("user");
-        if (username == null) {
+        if (username == null || username != "chloe") {
           // user is not logged in, redirects to the login page
           response.sendRedirect("/login");
           return;
