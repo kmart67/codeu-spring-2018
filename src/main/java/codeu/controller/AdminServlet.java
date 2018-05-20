@@ -34,7 +34,7 @@ public class AdminServlet extends HttpServlet {
         String username = (String) request.getSession().getAttribute("user");
         if (username == null) {
           // user is not logged in, redirects to the login page
-          response.sendRedirect("/login");
+          response.sendRedirect("/conversation");
           return;
         }
 
