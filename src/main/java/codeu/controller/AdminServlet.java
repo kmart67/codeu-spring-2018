@@ -33,10 +33,10 @@ public class AdminServlet extends HttpServlet {
 
         String username = (String) request.getSession().getAttribute("user");
         if (username == null ||
-            username != "chloe" ||
-            username != "ileana" ||
-            username != "ean" ||
-            username != "karina") {
+            (username != "chloe" &&
+            username != "ileana" &&
+            username != "ean" &&
+            username != "karina")) {
           // user is not logged in, redirects to the login page
           response.sendRedirect("/login");
           return;
