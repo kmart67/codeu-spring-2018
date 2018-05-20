@@ -36,7 +36,7 @@ public class AdminServlet extends HttpServlet {
           !username.equals("chloe") ||
           !username.equals("ileana") ||
           !username.equals("ean") ||
-          !username.equals("karina") ||) {
+          !username.equals("karina")) {
         // user is not logged in, redirects to the login page
         response.sendRedirect("/login");
         return;
