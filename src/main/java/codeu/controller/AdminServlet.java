@@ -32,15 +32,19 @@ public class AdminServlet extends HttpServlet {
       throws IOException, ServletException {
 
         String username = (String) request.getSession().getAttribute("user");
-        if (username == null) {
-          // user is not logged in, don't let them create a conversation
+        if (username == null ||
+            username != "chloe" ||
+            username != "ileana" ||
+            username != "ean" ||
+            username != "karina") {
+          // user is not logged in, redirects to the login page
           response.sendRedirect("/login");
           return;
         }
 
         User user = userStore.getUser(username);
         if (user == null) {
-          // user was not found, don't let them create a conversation
+          // user was not found, redirects to the admin page
           System.out.println("Access Denied: " + username);
           response.sendRedirect("/login");
           return;

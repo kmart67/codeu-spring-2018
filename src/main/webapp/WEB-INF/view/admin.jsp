@@ -18,11 +18,13 @@
   </nav>
 
   <div id="container">
-    <h1>This is the admin page!</h1>
+    <h1>Administraion</h1>
 
     <% if(request.getAttribute("error") != null){ %>
         <h2 style="color:red"><%= request.getAttribute("error") %></h2>
     <% } %>
+
+    <p>Welcome to the admin page!</p>
 
   </div>
 </body>
