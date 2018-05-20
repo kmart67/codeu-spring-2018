@@ -37,21 +37,10 @@ public class AdminServlet extends HttpServlet {
           !username.equals("ileana") &&
           !username.equals("ean") &&
           !username.equals("karina"))) {
-        // user is not logged in, redirects to the login page
+        // user is not logged in or one of the approved users, redirects to the login page
         response.sendRedirect("/login");
         return;
       }
-
-      // User user = userStore.getUser(username);
-      // if (user == null ||
-      //     !user.getName().equals("chloe") ||
-      //     !user.getName().equals("ileana") ||
-      //     !user.getName().equals("ean") ||
-      //     !user.getName().equals("karina")) {
-      //   // user was not found, redirects to the login page
-      //   response.sendRedirect("/login");
-      //   return;
-      // }
 
       request.getRequestDispatcher("/WEB-INF/view/admin.jsp").forward(request, response);
 
