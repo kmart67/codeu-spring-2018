@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Register</title>
+  <title>Admin</title>
   <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
@@ -15,6 +15,7 @@
       <a href="/login">Login</a>
     <% } %>
     <a href="/about.jsp">About</a>
+    <a href="/admin"> Admin</a>
   </nav>
 
   <div id="container">

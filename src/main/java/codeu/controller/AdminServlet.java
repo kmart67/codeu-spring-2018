@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
+import java.util.*;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 public class AdminServlet extends HttpServlet {
 
   private UserStore userStore;
+  public static final ArrayList<String> ADMINS = new ArrayList<String>(Arrays.asList("chloe", "ileana", "ean", "karina"));
+
 
   @Override
   public void init() throws ServletException {
@@ -32,16 +36,11 @@ public class AdminServlet extends HttpServlet {
       throws IOException, ServletException {
 
       String username = (String) request.getSession().getAttribute("user");
-      if (username == null ||
-          (!username.equals("chloe") &&
-          !username.equals("ileana") &&
-          !username.equals("ean") &&
-          !username.equals("karina"))) {
+      if (username == null || !ADMINS.contains(username)) {
         // user is not logged in or one of the approved users, redirects to the login page
         response.sendRedirect("/login");
         return;
       }
-
       request.getRequestDispatcher("/WEB-INF/view/admin.jsp").forward(request, response);
 
   }
@@ -50,8 +49,7 @@ public class AdminServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response)
       throws IOException, ServletException {
-
-
+      request.getRequestDispatcher("/WEB-INF/view/admin.jsp").forward(request, response);
   }
 
 
