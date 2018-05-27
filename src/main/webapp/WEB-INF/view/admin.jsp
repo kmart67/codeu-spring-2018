@@ -27,15 +27,19 @@
     <% } %>
     <hr/>
     <h2>Site Statistics</h2>
-    <b><ul id="adminList">
-      <li>Users: ${numUsers}</li>
-      <li>Conversations:</li>
-      <li>Messages:</li>
-      <li>Most active user:</li>
-      <li>Newest user:</li>
-      <li>Wordiest user:</li>
-    </ul></b>
+    <ul id="adminList">
+      <li><b>Users:</b> ${numUsers}</li>
+      <li><b>Conversations:</b> ${numCons}</li>
+      <li><b>Messages:</b> ${numMess}</li>
+      <li><b>Most active user:</b> ${mostActive}</li>
+      <li><b>Newest user:</b> ${newestUser}</li>
+      <li><b>Wordiest user:</b> ${mostWords}</li>
+    </ul>
     <hr/>
+    <h2>Import Data</h2>
+    From source:
+    <br>
+    <button type="submit">Submit</button>
 
 
   </div>

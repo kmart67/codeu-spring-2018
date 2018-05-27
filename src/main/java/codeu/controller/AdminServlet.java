@@ -21,7 +21,14 @@ public class AdminServlet extends HttpServlet {
 
   private UserStore userStore;
   private PersistentDataStore dataStore;
+
   private int numUsers;
+  private int numCons;
+  private int numMess;
+  private String mostActive;
+  private String newestUser;
+  private String mostWords;
+
   public static final ArrayList<String> ADMINS = new ArrayList<String>(Arrays.asList("chloe", "ileana", "ean", "karina"));
 
 
@@ -50,7 +57,19 @@ public class AdminServlet extends HttpServlet {
         return;
       }
 
+      // try {
+      //   setNumUsers(dataStore);
+      // } catch (Exception e) {
+      //   throw new PersistentDataStoreException(e);
+      // }
+
       request.setAttribute("numUsers", numUsers);
+      request.setAttribute("numCons", numCons);
+      request.setAttribute("numMess", numMess);
+      request.setAttribute("mostActive", mostActive);
+      request.setAttribute("newestUser", newestUser);
+      request.setAttribute("mostWords", mostWords);
+      
       request.getRequestDispatcher("/WEB-INF/view/admin.jsp").forward(request, response);
 
   }
