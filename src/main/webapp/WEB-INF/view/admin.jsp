@@ -36,11 +36,6 @@
       <li><b>Wordiest user:</b> ${mostWords}</li>
     </ul>
     <hr/>
-    <h2>Import Data</h2>
-    From source:
-    <br>
-    <button type="submit">Submit</button>
-
 
   </div>
 </body>
