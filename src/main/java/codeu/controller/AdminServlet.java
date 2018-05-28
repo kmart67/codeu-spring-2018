@@ -8,11 +8,13 @@ import codeu.model.store.basic.UserStore;
 import codeu.model.store.basic.MessageStore;
 import codeu.model.store.persistence.PersistentDataStore;
 import java.io.IOException;
+import java.io.*;
 import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 import java.util.*;
 import java.util.ArrayList;
+import java.lang.*;
 import javax.servlet.ServletException;
 import codeu.model.store.persistence.PersistentDataStoreException;
 import javax.servlet.http.HttpServlet;
@@ -24,7 +26,6 @@ public class AdminServlet extends HttpServlet {
   private UserStore userStore;
   private ConversationStore conStore;
   private MessageStore messStore;
-  private Map<UUID, Integer> messCount;
 
   private int numUsers;
   private int numCons;
@@ -57,8 +58,8 @@ public class AdminServlet extends HttpServlet {
   }
 
   //puts users into a map and counts how many messages they've sent
-  void sortMess(MessageStore messStore) {
-    messCount = new TreeMap<UUID, Integer>();
+  Map<UUID, Integer> numMess(MessageStore messStore) {
+    Map<UUID, Integer> messCount = new TreeMap<UUID, Integer>();
     List<Message> messages = messStore.getAllMessages();
 
     for(Message m : messages) {
@@ -68,15 +69,17 @@ public class AdminServlet extends HttpServlet {
       }
       messCount.put(id, messCount.get(id) + 1);
     }
+    return messCount;
   }
 
   //takes in the message count map and returns the user that has
   //the highest message count
-  String getMostActive(Map<UUID, Integer> map) {
+  String getMostActive() {
+    Map<UUID, Integer> messCount = numMess(messStore);
     int most = 0;
     UUID id = null;
-    for(UUID user : map.keySet()) {
-      int val = map.get(user);
+    for(UUID user : messCount.keySet()) {
+      int val = messCount.get(user);
       if(val > most) {
         most = val;
         id = user;
@@ -86,6 +89,7 @@ public class AdminServlet extends HttpServlet {
     return u.getName();
   }
 
+  //returns the name of the newest user
   String getNewestUser(UserStore userStore) {
     List<User> users = userStore.getAllUsers();
     //returns the name of the user if there's only one
@@ -107,8 +111,34 @@ public class AdminServlet extends HttpServlet {
     }
   }
 
-  String getMostWords(Map<UUID, Integer> map) {
-    return "";
+  //puts users into a map and counts the words in their messages
+  Map<UUID, Integer> numWords(MessageStore messStore) {
+    Map<UUID, Integer> wordCount = new TreeMap<UUID, Integer>();
+    List<Message> messages = messStore.getAllMessages();
+
+    for(Message m : messages) {
+      UUID id = m.getAuthorId();
+      if(!wordCount.containsKey(id)) {
+        wordCount.put(id, 0);
+      }
+      wordCount.put(id, wordCount.get(id) + m.getContent().trim().split("\\s+").length);
+    }
+    return wordCount;
+  }
+
+  String getMostWords() {
+    Map<UUID, Integer> wordCount = numWords(messStore);
+    int most = 0;
+    UUID id = null;
+    for(UUID user : wordCount.keySet()) {
+      int val = wordCount.get(user);
+      if(val > most) {
+        most = val;
+        id = user;
+      }
+    }
+    User u = userStore.getUser(id);
+    return u.getName();
   }
 
 
@@ -135,9 +165,9 @@ public class AdminServlet extends HttpServlet {
       numCons = conStore.getAllConversations().size();
       numMess = messStore.getAllMessages().size();
 
-      sortMess(messStore);
-      mostActive = getMostActive(messCount);
+      mostActive = getMostActive();
       newestUser = getNewestUser(userStore);
+      mostWords = getMostWords();
 
       request.setAttribute("numUsers", numUsers);
       request.setAttribute("numCons", numCons);
