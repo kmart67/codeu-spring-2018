@@ -34,7 +34,7 @@ public class AdminServlet extends HttpServlet {
   private String newestUser;
   private String mostWords;
 
-  public static final ArrayList<String> ADMINS = new ArrayList<String>(Arrays.asList("chloe", "ileana", "ean", "karina"));
+  public static final ArrayList<String> ADMINS = new ArrayList<String>(Arrays.asList("chloe", "ileana", "ean", "karina", "gaurav"));
 
 
   @Override

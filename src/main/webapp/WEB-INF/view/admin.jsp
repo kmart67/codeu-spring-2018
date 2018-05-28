@@ -20,7 +20,7 @@
   </nav>
 
   <div id="container">
-    <h1>Adminisration</h1>
+    <h1>Administration</h1>
 
     <% if(request.getAttribute("error") != null){ %>
         <h2 style="color:red"><%= request.getAttribute("error") %></h2>
