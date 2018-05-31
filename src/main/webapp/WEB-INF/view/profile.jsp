@@ -1,6 +1,7 @@
 <%
 String title = (String) request.getAttribute("title");
 String profileName = (String) request.getAttribute("profile");
+String user = (String) request.getAttribute("user");
 %>
 
 <!DOCTYPE html>

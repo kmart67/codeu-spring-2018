@@ -36,7 +36,7 @@ public class ProfileServlet extends HttpServlet {
       User profile = userStore.getUser(profileName);
       if (profile == null) {
         // user was not found
-        System.out.println("User was not found: " + profileName);
+        request.setAttribute("error", "That username was not found.");
         response.sendRedirect("/conversations");
         return;
       }
